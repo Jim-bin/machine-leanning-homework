@@ -32,7 +32,8 @@ X = [ones(m, 1) X];
 
 
 
-
+[val p] = max(X * all_theta', [], 2)
+ 
 
 
 

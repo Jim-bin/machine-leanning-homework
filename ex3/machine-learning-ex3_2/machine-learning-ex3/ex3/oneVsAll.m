@@ -8,21 +8,21 @@ function [all_theta] = oneVsAll(X, y, num_labels, lambda)
 %   to the classifier for label i
 
 % Some useful variables
-m = size(X, 1);
+m = size(X, 1);  % m是矩阵X的行数， n是矩阵X的列数
 n = size(X, 2);
 
 % You need to return the following variables correctly 
-all_theta = zeros(num_labels, n + 1);
+all_theta = zeros(num_labels, n + 1); % num_labels行,n+1列 全0矩阵
 
 % Add ones to the X data matrix
-X = [ones(m, 1) X];
+X = [ones(m, 1) X];  % 全1矩阵
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the following code to train num_labels
 %               logistic regression classifiers with regularization
 %               parameter lambda. 
 %
-% Hint: theta(:) will return a column vector.
+% Hint: theta(:) will return a column vector. 每列排在一起，成为一个列向量
 %
 % Hint: You can use y == c to obtain a vector of 1's and 0's that tell you
 %       whether the ground truth is true/false for this class.
@@ -49,7 +49,14 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
-
+% set Initial theta
+initial_theta = zeros(n + 1, 1); % n+1行，1列  全0矩阵
+% Set options for fminunc
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+for c=1:num_labels
+	[theta] = fmincg(@(t)(lrCostFunction(t, X, (y == c), lambda)), initial_theta, options);
+	all_theta(c, :) = theta';
+end
 
 
 

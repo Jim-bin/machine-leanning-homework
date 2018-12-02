@@ -73,6 +73,9 @@ pause;
 %% ============ Part 2b: One-vs-All Training ============
 fprintf('\nTraining One-vs-All Logistic Regression...\n')
 
+X
+y
+
 lambda = 0.1;
 [all_theta] = oneVsAll(X, y, num_labels, lambda);
 
